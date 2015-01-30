@@ -124,6 +124,14 @@ class Platillo extends AppModel {
 			'order' => ''
 		)
 	);
+	
+	public $hasMany = array(
+		'Pedido' => array(
+			'className' => 'Pedido',
+			'foreignKey' => 'platillo_id',
+			'dependent' => false
+		)	
+	);
 
 /**
  * hasAndBelongsToMany associations

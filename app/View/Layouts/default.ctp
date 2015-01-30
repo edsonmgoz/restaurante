@@ -37,6 +37,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	?>
 	<script type="text/javascript">
 		$("#foto").fileinput();
+		
+		var basePath = "<?php echo Router::url('/'); ?>"
 	</script>
 </head>
 <body>
@@ -48,6 +50,10 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 			<?php echo $this->Session->flash(); ?>
 
 			<?php echo $this->fetch('content'); ?>
+			
+			<br>
+			<div id="msg"></div>
+			<br>
     </div>
 </body>
 </html>
