@@ -42,3 +42,21 @@ body {
     right: 10px;
     z-index: 10000;
 }
+
+.img-pedidos {
+    height: 60px;
+}
+
+.remove {
+  color: #000000;
+  font-size: 1.3em;
+}
+.remove:hover {
+  color: #000000;
+}
+.tr { text-align: right }
+
+.total {
+  font-size: 20px;
+  font-weight: bold;
+}

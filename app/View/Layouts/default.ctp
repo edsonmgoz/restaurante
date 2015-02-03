@@ -21,6 +21,8 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 <html>
 <head>
 	<?php echo $this->Html->charset(); ?>
+	<?php echo $this->Html->meta(array('name' => 'viewport', 'content' => 'width=device-width, minimum-scale=1, maximum-scale=1')); ?>
+
 	<title>
 		<?php echo $cakeDescription ?>:
 		<?php echo $this->fetch('title'); ?>
@@ -29,7 +31,7 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 		echo $this->Html->meta('icon');
 
 		echo $this->Html->css(array('style.css' ,'bootstrap.min', 'bootstrap-theme.min', 'fileinput.min'));
-		echo $this->Html->script(array('jquery.min', 'docs.min', 'bootstrap.min', 'fileinput.min'));
+		echo $this->Html->script(array('jquery.min', 'bootstrap.min', 'fileinput.min'));
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
