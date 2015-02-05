@@ -72,8 +72,8 @@ class PedidosController extends AppController {
             
             $this->Pedido->saveAll($item_update);
         }
-        $total = $this->Pedido->find('all', array('fields' => array('SUM(Pedido.subtotal) as subtotal')));
         
+        $total = $this->Pedido->find('all', array('fields' => array('SUM(Pedido.subtotal) as subtotal')));
         $mostrar_total = $total[0][0]['subtotal'];
         
         $pedido_update = $this->Pedido->find('all', array('fields' => array('Pedido.id', 'Pedido.subtotal'), 'conditions' => array('Pedido.id' => $id)));
@@ -81,8 +81,43 @@ class PedidosController extends AppController {
         $mostrar_pedido = array('id' => $pedido_update[0]['Pedido']['id'], 'subtotal' => $pedido_update[0]['Pedido']['subtotal'], 'total' => $mostrar_total);
         
         echo json_encode(compact('mostrar_pedido'));
-        
         $this->autoRender = false;
+    }
+    
+    public function remove()
+    {
+        if($this->request->is('ajax'))
+        {
+            $id = $this->request->data['id'];
+            $this->Pedido->delete($id);
+        }
+        
+        $total_remove = $this->Pedido->find('all', array('fields' => array('SUM(Pedido.subtotal) as subtotal')));
+        $mostrar_total_remove = $total_remove[0][0]['subtotal'];
+        
+        $pedidos = $this->Pedido->find('all');
+        
+        if(count($mostrar_total_remove) == 0)
+        {
+            $mostrar_total_remove = "0.00";
+        }
+        
+        echo json_encode(compact('pedidos', 'mostrar_total_remove'));
+        $this->autoRender = false;
+    }
+    
+    public function quitar()
+    {
+        if($this->Pedido->deleteAll(1, false))
+        {
+            $this->Session->setFlash('Todos los pedidos han sido quitados', 'default', array('class' => 'alert alert-success'));
+        }
+        else
+        {
+            $this->Session->setFlash('No se pudo quitar los pedidos', 'default', array('class' => 'alert alert-danger'));
+        }
+        
+        return $this->redirect(array('controller' => 'platillos', 'action' => 'index'));
     }
     
 }

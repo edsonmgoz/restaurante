@@ -62,6 +62,9 @@
 	<div class="col col-sm-12">
 		<div class="pull-right tr">
 
+		<?php echo $this->Html->link('Quitar pedidos', array('controller' => 'pedidos', 'action' => 'quitar'), array('class' => 'btn btn-danger', 'confirm' => 'Está seguro de quitar todos los pedidos?')); ?>
+
+		<br><br><br><br>
 		<span class="total">Total Orden:</span>
 		<span id="total" class="total">
 			$ <?php echo $total_pedidos; ?>
