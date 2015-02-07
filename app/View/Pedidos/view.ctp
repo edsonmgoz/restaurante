@@ -4,6 +4,8 @@
 
 <?php echo $this->Html->script(array('cart.js', 'jquery.animate-colors'), array('inline' => false)); ?>
 
+<?php echo $this->Form->create(NULL, array('url' => array('controller' => 'pedidos', 'action' => 'recalcular'))); ?>
+
 <h1>Pedidos</h1>
 
 <hr>
@@ -63,12 +65,22 @@
 		<div class="pull-right tr">
 
 		<?php echo $this->Html->link('Quitar pedidos', array('controller' => 'pedidos', 'action' => 'quitar'), array('class' => 'btn btn-danger', 'confirm' => 'Está seguro de quitar todos los pedidos?')); ?>
+		
+		&nbsp;&nbsp;
+
+		<?php echo $this->Form->button('Recalcular', array('class' => 'btn btn-default', 'escape' => false, 'name' => 'recalcular', 'value' => 'recalcular')); ?>
 
 		<br><br><br><br>
 		<span class="total">Total Orden:</span>
 		<span id="total" class="total">
 			$ <?php echo $total_pedidos; ?>
 		</span>
+
+		<br><br>
+		
+		<?php echo $this->Form->button('<i class="glyphicon glyphicon-arrow-right"></i> Procesar Orden', array('class' => 'btn btn-primary', 'escape' =>false, 'name' => 'procesar', 'value' => 'procesar')); ?>
+
+		<?php echo $this->Form->end(); ?>
 
 		</div>
 	</div>

@@ -41,7 +41,7 @@ class PedidosController extends AppController {
         }
         
         
-        $this->set('pedidos', $this->Pedido->find('all', array('orden' => 'Pedido.id ASC')));
+        $this->set('pedidos', $this->Pedido->find('all', array('order' => 'Pedido.id ASC')));
         
         $total_pedidos = $this->Pedido->find('all', array('fields' => array('SUM(Pedido.subtotal) as subtotal')));
         $mostrar_total_pedidos = $total_pedidos[0][0]['subtotal'];
@@ -118,6 +118,50 @@ class PedidosController extends AppController {
         }
         
         return $this->redirect(array('controller' => 'platillos', 'action' => 'index'));
+    }
+    
+    public function recalcular()
+    {
+        // debug($_POST);
+        
+        $arreglo = $this->request->data['Pedido'];
+        
+        // debug($arreglo);
+        
+        if($this->request->is('post'))
+        {
+            foreach($arreglo as $key => $value)
+            {
+                $entero = preg_replace("/[^0-9]/", "", $value);
+                
+                if($entero == 0 || $entero == "")
+                {
+                    $entero = 1;
+                }
+                
+                $precio_update = $this->Pedido->find('all', array('fields' => array('Pedido.id', 'Platillo.precio'), 'conditions' => array('Pedido.id' => $key)));
+                
+                $precio_update_mostrar = $precio_update[0]['Platillo']['precio'];
+                
+                $subtotal_update = $entero * $precio_update_mostrar;
+                
+                $pedido_update = array('id' => $key, 'cantidad' => $entero, 'subtotal' => $subtotal_update);
+                $this->Pedido->saveAll($pedido_update);
+            }
+        }
+        
+        
+        
+        if($this->request->data['recalcular'] == 'recalcular')
+        {
+            $this->Session->setFlash('Todos los pedidos fueron actualizados correctamente', 'default', array('class' => 'alert alert-success'));
+                    
+            return $this->redirect(array('controller' => 'pedidos', 'action' => 'view'));            
+        }
+        elseif($this->request->data['procesar'] == 'procesar')
+        {
+             return $this->redirect(array('controller' => 'ordens', 'action' => 'add'));  
+        }
     }
     
 }
