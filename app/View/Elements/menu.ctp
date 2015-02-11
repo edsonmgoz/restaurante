@@ -52,7 +52,7 @@
            
               </ul>
             </li>
-
+            <li><?php echo $this->Html->link('Lista de Órdenes', array('controller' => 'ordens', 'action' => 'index')); ?></li>
           </ul>
           <?php echo $this->Html->link('Pedidos', array('controller' => 'pedidos', 'action' => 'view'), array('class' => 'btn btn-success navbar-btn') ); ?>
         </div><!--/.nav-collapse -->

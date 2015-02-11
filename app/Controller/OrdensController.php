@@ -3,7 +3,23 @@
 class OrdensController extends AppController{
     
     public $components = array('Session', 'RequestHandler');
-    public $helpers = array('Html', 'Form', 'Time');
+    public $helpers = array('Html', 'Form', 'Time', 'Js');
+    
+    public $paginate = array(
+            'limit' => 2,
+            'order' => array(
+                'Orden.id' => 'desc'
+            )
+        );
+
+    public function index()
+    {
+        $this->Orden->recursive = 0;
+        
+        $this->paginate['Orden']['limit'] = 2;
+        $this->paginate['Orden']['order'] = array('Orden.id' => 'desc');
+        $this->set('ordens', $this->paginate());
+    }
     
     public function add()
     {
