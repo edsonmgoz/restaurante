@@ -11,7 +11,7 @@ class OrdenItemsController extends AppController {
                 'OrdenItem.id' => 'asc'
             )
         );
-        
+
     public function view($id = null)
     {
         $this->OrdenItem->recursive = 2;

@@ -23,6 +23,29 @@ class PlatillosController extends AppController {
         )
     );
 
+
+	public function isAuthorized($user)
+	{
+		if($user['role'] == 'user')
+		{
+			if(in_array($this->action, array('add', 'index', 'view', 'searchjson', 'search')))
+			{
+				return true;
+			}
+			else
+			{
+				if($this->Auth->user('id'))
+				{
+					$this->Session->setFlash('No puede acceder', 'default', array('class' => 'alert alert-danger'));
+					$this->redirect($this->Auth->redirect());
+				}
+			}
+		}
+		
+		return parent::isAuthorized($user);
+	}
+
+
 /**
  * index method
  *

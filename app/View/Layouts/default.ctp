@@ -44,12 +44,14 @@ $cakeVersion = __d('cake_dev', 'CakePHP %s', Configure::version())
 	</script>
 </head>
 <body>
-
+	<?php if(isset($current_user)): ?>
 	<?php echo $this->element('menu'); ?>
+	<?php endif; ?>
 
-    <div class="container theme-showcase" role="main">
+    <div class="container" role="main">
 
 			<?php echo $this->Session->flash(); ?>
+			<?php echo $this->Session->flash('auth'); ?>
 
 			<?php echo $this->fetch('content'); ?>
 			
